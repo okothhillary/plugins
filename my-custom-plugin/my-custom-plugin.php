@@ -16,11 +16,13 @@ if (!defined('ABSPATH')) {
 */
 function my_custom_plugin_enqueue_styles() {
     $css_file = plugin_dir_path(__FILE__) . 'css/custom-style.css';
+
+    // Use time() alone to force browser to always load latest version
     wp_enqueue_style(
         'my-custom-style',
         plugin_dir_url(__FILE__) . 'css/custom-style.css',
         array(),
-        filemtime($css_file) . '-' . time() // last modified time + timestamp to kill caching
+        time() // development cache-busting
     );
 }
 add_action('wp_enqueue_scripts', 'my_custom_plugin_enqueue_styles');
@@ -30,11 +32,13 @@ add_action('wp_enqueue_scripts', 'my_custom_plugin_enqueue_styles');
 */
 function my_custom_plugin_enqueue_scripts() {
     $js_file = plugin_dir_path(__FILE__) . 'js/custom-script.js';
+
+    // Force browser to load latest JS every page load
     wp_enqueue_script(
         'my-custom-script',
         plugin_dir_url(__FILE__) . 'js/custom-script.js',
         array('jquery'),
-        filemtime($js_file) . '-' . time(), //force browser to load latest file
+        time(), // prevent browser from loading cached version
         true
     );
 }
@@ -44,8 +48,8 @@ add_action('wp_enqueue_scripts', 'my_custom_plugin_enqueue_scripts');
  Debug log for CSS/JS versioning
 */
 add_action('wp_enqueue_scripts', function() {
-    error_log('Custom plugin enqueued CSS version: ' . filemtime(plugin_dir_path(__FILE__) . 'css/custom-style.css') . '-' . time());
-    error_log('Custom plugin enqueued JS version: ' . filemtime(plugin_dir_path(__FILE__) . 'js/custom-script.js') . '-' . time());
+    error_log('Custom plugin enqueued CSS version: ' . time());
+    error_log('Custom plugin enqueued JS version: ' . time());
 });
 
 /*
