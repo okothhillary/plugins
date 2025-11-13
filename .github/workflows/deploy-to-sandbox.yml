@@ -17,9 +17,9 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ftp.sblik.com
-          username: hillarywokoth@sblik.com
+          username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
-          local-dir: ./plugins/my-custom-plugin/
-          server-dir: /wp-content/plugins/my-custom-plugin/
+          local-dir: ./my-custom-plugin/
+          server-dir: /wp-content/plugins/my-custom-plugin/   # path on the sandbox server
           dry-run: false
