@@ -1,0 +1,26 @@
+name: Deploy to Sandbox via FTP
+
+on:
+  push:
+    branches:
+      - main   # Only run when you push to main branch
+
+jobs:
+  ftp-deploy:
+    name: Deploy WordPress Site to Sandbox
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: FTP Deploy to Sandbox
+        uses: SamKirkland/FTP-Deploy-Action@4.4.0
+        with:
+          server: ftp.sblik.com
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          local-dir: ./   # path in your repo to deploy
+          server-dir: /wp-content/plugins/my-custom-plugin   # path on the sandbox server
+          dry-run: false  # set true for first test to preview
