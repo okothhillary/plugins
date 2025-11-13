@@ -1,5 +1,5 @@
 //confirm JS is running
-console.log('my custom plugins are queued');
+console.log('%cCustom plugins are queued', 'color: red; font-size: 20px;');
 
 window.onload = function() {
 
