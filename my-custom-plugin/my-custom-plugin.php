@@ -15,11 +15,12 @@ if (!defined('ABSPATH')) {
  Enqueue Custom CSS
 */
 function my_custom_plugin_enqueue_styles() {
+    $css_file = plugin_dir_path(__FILE__) . 'css/custom-style.css';
     wp_enqueue_style(
         'my-custom-style',
         plugin_dir_url(__FILE__) . 'css/custom-style.css',
         array(),
-        filemtime(plugin_dir_path(__FILE__) . 'css/custom-style.css') // version = last modified time
+        filemtime($css_file) . '-' . time() // last modified time + timestamp to kill caching
     );
 }
 add_action('wp_enqueue_scripts', 'my_custom_plugin_enqueue_styles');
@@ -28,15 +29,24 @@ add_action('wp_enqueue_scripts', 'my_custom_plugin_enqueue_styles');
  Enqueue Custom JS
 */
 function my_custom_plugin_enqueue_scripts() {
+    $js_file = plugin_dir_path(__FILE__) . 'js/custom-script.js';
     wp_enqueue_script(
         'my-custom-script',
         plugin_dir_url(__FILE__) . 'js/custom-script.js',
         array('jquery'),
-        filemtime(plugin_dir_path(__FILE__) . 'js/custom-script.js'), // version = last modified time
+        filemtime($js_file) . '-' . time(), //force browser to load latest file
         true
     );
 }
 add_action('wp_enqueue_scripts', 'my_custom_plugin_enqueue_scripts');
+
+/*
+ Debug log for CSS/JS versioning
+*/
+add_action('wp_enqueue_scripts', function() {
+    error_log('Custom plugin enqueued CSS version: ' . filemtime(plugin_dir_path(__FILE__) . 'css/custom-style.css') . '-' . time());
+    error_log('Custom plugin enqueued JS version: ' . filemtime(plugin_dir_path(__FILE__) . 'js/custom-script.js') . '-' . time());
+});
 
 /*
  Gravity Forms After Submission Hook
@@ -49,21 +59,21 @@ function my_custom_plugin_gravity_webhook($entry, $form) {
         return;
     }
 
-    // Map all fields with their actual IDs as in wordpress )
+    // Map all fields with their actual IDs as in WordPress
     $data = array(
-        'business_name'   => rgar($entry, '1'),
-        'address'         => rgar($entry, '4'),
+        'business_name'     => rgar($entry, '1'),
+        'address'           => rgar($entry, '4'),
         'preferred_contact' => rgar($entry, '11'),
-        'email'           => rgar($entry, '2'),
-        'phone'           => rgar($entry, '5'),
-        'best_time'       => rgar($entry, '12'),
-        'subject'         => rgar($entry, '3'),
+        'email'             => rgar($entry, '2'),
+        'phone'             => rgar($entry, '5'),
+        'best_time'         => rgar($entry, '12'),
+        'subject'           => rgar($entry, '3'),
     );
 
     // Convert to JSON
     $body = wp_json_encode($data);
 
-    // Send to Webhook.site (replace with your actual webhook URL)
+    // Send to Webhook.site
     $response = wp_remote_post('https://webhook.site/e2dbc0c0-2ac0-460b-84d9-a3994ff14b0e', array(
         'method'    => 'POST',
         'headers'   => array('Content-Type' => 'application/json; charset=utf-8'),
