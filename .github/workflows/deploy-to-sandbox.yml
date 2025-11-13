@@ -22,5 +22,5 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
           local-dir: ./   # path in your repo to deploy
-          server-dir: /wp-content/plugins/my-custom-plugin   # path on the sandbox server
+          server-dir: /wp-content/plugins/my-custom-plugin/   # path on the sandbox server
           dry-run: false  # set true for first test to preview
