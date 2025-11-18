@@ -1,0 +1,7 @@
+/* Simplify Task Manager Admin Styles */
+
+/* Target the menu icon */
+#toplevel_page_stm_task_manager .wp-menu-image img {
+    width: 20px;
+    height: 20px;
+}

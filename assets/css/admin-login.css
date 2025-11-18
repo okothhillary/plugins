@@ -1,0 +1,71 @@
+/*
+* This file contains all the custom styles for the WordPress login page.
+* It is loaded by the stm_login_styles function in admin-login-mods.php
+*/
+
+/* Change the background to a linear gradient */
+body.login {
+    background: #D8E2FE;
+    background: linear-gradient(90deg,rgba(216, 226, 254, 1) 0%, rgba(235, 255, 236, 1) 50%, rgba(255, 249, 235, 1) 100%);
+}
+
+/* Style the login box */
+#login {
+    padding: 5% 0 0 0;
+}
+#loginform {
+    background: #fffcf7;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* This style replace the logo to the company's */
+#login h1 a, .login h1 a {
+    background-image: url("../images/simplify-logo.png");
+    width: 200px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    text-indent: -9999px;
+}
+
+/* Style the custom login messages */
+.login #login_error,
+.login .message,
+.login .success {
+    border-radius: 8px !important;
+}
+
+/* This targets the custom message I added */
+#login .message {
+    background: #fffcf7;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.stm-login-header .stm-login-title {
+    color: #444;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.stm-login-header .stm-login-subtitle {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Round the form inputs and button */
+.login form .input,
+.login input[type="text"] {
+    border-radius: 8px;
+}
+
+.login input[type="password"] {
+    border-radius: 8px;
+}
+
+.wp-core-ui .button-primary {
+    border-radius: 8px;
+}
