@@ -51,7 +51,7 @@ function my_custom_plugin_debug_info() {
             JS:  ' . esc_html($js_time) . '
           </div>';
 }
-add_action('wp_footer', 'my_custom_plugin_debug_info');
+//add_action('wp_footer', 'my_custom_plugin_debug_info');
 
 /*
  Gravity Forms After Submission Hook
