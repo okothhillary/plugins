@@ -1,12 +1,12 @@
 /* Custom styles */
 body {
-    background-color: #002300;
+    background-color: lightgrey;
 }
 
 /* Scroll-to-Top button styles */
 #scrollToTop {
     padding: 10px 15px;
-    background-color: #000; /* professional blue */
+    background-color: purple; /* professional blue */
     color: #fff;
     border: none;
     border-radius: 5px;
