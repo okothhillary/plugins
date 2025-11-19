@@ -1,19 +1,22 @@
 name: Deploy Plugin to Sandbox
+
 on:
-  push:
-    branches:
-      - main
+  push:
+    branches:
+      - main
+
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-      - name: FTP Deploy
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_LIVE_USERNAME }}
-          password: ${{ secrets.FTP_LIVE_PASSWORD }}
-          local-dir: ./
-          server-dir: /public_html/wp-content/plugins/
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_LIVE_USERNAME }}
+          password: ${{ secrets.FTP_LIVE_PASSWORD }}
+          local-dir: ./
+          server-dir: /public_html/wp-content/plugins/
